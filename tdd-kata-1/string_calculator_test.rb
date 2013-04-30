@@ -26,4 +26,8 @@ class StringCalculatorTest < MiniTest::Unit::TestCase
   def test_add_handle_new_lines_separator
     assert_equal 6, StringCalculator.add("1\n2,3")
   end
+
+  def test_add_supports_custom_delimiters
+    assert_equal 6, StringCalculator.add("//;\n1;2;3")
+  end
 end

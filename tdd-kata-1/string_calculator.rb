@@ -7,6 +7,15 @@
 class StringCalculator
   def self.add(numbers)
     return 0 if numbers.empty?
-    numbers.split(/\n|,/).map(&:to_i).inject(:+)
+
+    if numbers =~ /^\/\//
+      delimiter, numbers = numbers.split("\n")
+      delimiter = delimiter.sub("//", "")
+      numbers = numbers.split(delimiter)
+    else
+      numbers = numbers.split(/\n|,/)
+    end
+
+    numbers.map(&:to_i).inject(:+)
   end
 end
