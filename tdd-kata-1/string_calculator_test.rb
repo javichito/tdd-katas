@@ -18,4 +18,12 @@ class StringCalculatorTest < MiniTest::Unit::TestCase
   def test_add_with_n_numbers
     assert_equal 128, StringCalculator.add("30,50,10,5,28,5")
   end
+
+  def test_add_handle_comma_separator
+    assert_equal 6, StringCalculator.add("1,2,3")
+  end
+
+  def test_add_handle_new_lines_separator
+    assert_equal 6, StringCalculator.add("1\n2,3")
+  end
 end
