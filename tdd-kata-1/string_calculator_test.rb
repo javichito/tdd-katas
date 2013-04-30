@@ -30,4 +30,9 @@ class StringCalculatorTest < MiniTest::Unit::TestCase
   def test_add_supports_custom_delimiters
     assert_equal 6, StringCalculator.add("//;\n1;2;3")
   end
+
+  def test_add_raises_an_exception_on_negative_number
+    exception = assert_raises(Exception) { StringCalculator.add("5,-3,1,-2") }
+    assert_equal "negatives not allowed: -3,-2", exception.message
+  end
 end

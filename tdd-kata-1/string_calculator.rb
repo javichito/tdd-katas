@@ -16,6 +16,15 @@ class StringCalculator
       numbers = numbers.split(/\n|,/)
     end
 
-    numbers.map(&:to_i).inject(:+)
+    negatives = []
+    numbers = numbers.map do |n|
+      n = n.to_i
+      negatives << n if n < 0
+      n
+    end
+
+    raise Exception, "negatives not allowed: #{negatives.join(',')}" if !negatives.empty?
+
+    numbers.inject(:+)
   end
 end
