@@ -3,6 +3,7 @@ require_relative 'string_calculator'
 DELEGATIONS =  {
   "scalc" => StringCalculator
 }
+$command = nil
 
 def parse(string)
   command, parameters = string.split(" ")
@@ -12,6 +13,7 @@ end
 
 def delegator(command, param)
   if DELEGATIONS.has_key? command
+    $command = command
     DELEGATIONS[command].add(param)
   else
     raise Exception
@@ -26,6 +28,15 @@ end
 
 def outputter(result)
   puts "The result is #{result}"
+end
+
+def ask_again
+  puts "another input please:"
+  param = gets.chomp
+  exit if param.empty?
+  
+  result = delegator $command, param
+  outputter result
 end
 
 # Uncomment this if want to run this file
