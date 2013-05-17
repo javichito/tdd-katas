@@ -46,6 +46,44 @@ describe "Console Calculator" do
     end
   end
 
+  describe "ask_again" do
+    before do
+      stubs(:exit)
+      stubs(:puts)
+    end
+
+    it "should asks the user for input" do
+      stubs(:gets).returns("\n")
+      expects(:puts).with("another input please:")
+      ask_again
+    end
+
+    describe "with input" do
+      before do
+       $command = "scalc"
+       stubs(:gets).returns("1,2,3\n")
+     end
+
+      it "should pass the input to delegator with proper command" do
+        expects(:delegator).with($command, "1,2,3")
+        ask_again
+      end
+
+      it "should call outputter with the new result" do
+        expects(:outputter).with(6)
+        ask_again
+      end
+    end
+
+    describe "with no input" do
+      it "should exit" do
+        stubs(:gets).returns("\n")
+        expects(:exit)
+        ask_again
+      end
+    end
+  end
+
   it "should call outputter with the right param" do
     expects(:outputter).with(6)
     outputter read(["scalc '1,2,3'"])
